@@ -15,30 +15,41 @@ let userController = {
         plain: true
       }))
       if (created){
-        res.render('index', {title: "home", success: "register success"})
+        res.render('index', {title: "HOME", success: "register success"})
       } else {
-        res.render('index', {title: "home", success: "email or username already registered"})
+        res.render('index', {title: "HOME", success: "email or username already registered"})
       }
     })
   },
   login: function(req, res){
     let username = req.body.username
     let password = req.body.password
-    user.findOne({where: {username: username}}).then(function(err, data) {
-      if(err) throw error
+    user.findOne({where: {username: username}}).then(function(data, err) {
+      if(err) console.log(err)
       if(!data){
-        res.render('index', {title: "home", success: "Username not Found"})
+        res.render('index', {title: "HOME", success: "Username not Found"})
       }
-      if(hash.verify(password, data.password)){
-        req.session.login = true
-        res.render('secret')
+      if(hash.verify(password, data.dataValues.password)){
+        req.session.user = data.dataValues.username
+        res.redirect('/secret')
       } else {
-        res.render('index', {title: "home", success: "Incorrect Password"})
+        res.render('index', {title: "HOME", success: "Incorrect Password"})
       }
     })
   },
-  logout: function () {
+  logout: function (req, res) {
     req.session.destroy()
+    res.redirect('/')
+  },
+  home: function (req,res) {
+    res.render('index', {title: "HOME", success: "Welcome To Landing Page"})
+  },
+  protect: function(req, res, next){
+    if(req.session.user){
+      next()
+    } else {
+      res.render('index', {title: "HOME", success: "Please Login!!!"})
+    }
   }
 }
 
