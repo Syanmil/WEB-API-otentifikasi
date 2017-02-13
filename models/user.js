@@ -13,7 +13,8 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         isEmail: true
       }
-    }
+    },
+    role: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
