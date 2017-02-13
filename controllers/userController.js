@@ -58,7 +58,7 @@ let userController = {
     res.render('register', {title: "REGISTER PAGE"})
   },
   secretPage: function(req, res){
-    res.render('secret', {user: req.session.user, title: 'Secret Home'})
+    res.render('secret', {user: req.session.user, role: req.session.role, title: 'Secret Home'})
   }
 }
 
