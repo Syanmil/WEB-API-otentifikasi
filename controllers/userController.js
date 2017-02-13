@@ -39,7 +39,7 @@ let userController = {
   },
   logout: function (req, res) {
     req.session.destroy()
-    res.redirect('/')
+    res.redirect('/users')
   },
   home: function (req,res) {
     res.render('index', {title: "HOME", success: "Welcome To Landing Page"})
@@ -50,6 +50,12 @@ let userController = {
     } else {
       res.render('index', {title: "HOME", success: "Please Login!!!"})
     }
+  },
+  registerPage: function(req, res){
+    res.render('register', {title: "REGISTER PAGE"})
+  },
+  secretPage: function(req, res){
+    res.render('secret', {user: req.session.user, title: 'Secret Home'})
   }
 }
 
