@@ -19,6 +19,8 @@ let userController = {
       } else {
         res.render('index', {title: "HOME", success: "email or username already registered"})
       }
+    }).catch(function(){
+      res.render('index', {title: "HOME", success: "register failed, password too short"})
     })
   },
   login: function(req, res){
