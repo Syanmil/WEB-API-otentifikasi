@@ -31,7 +31,7 @@ let userController = {
       }
       if(hash.verify(password, data.dataValues.password)){
         req.session.user = data.dataValues.username
-        res.redirect('/secret')
+        res.redirect('users/secret')
       } else {
         res.render('index', {title: "HOME", success: "Incorrect Password"})
       }
